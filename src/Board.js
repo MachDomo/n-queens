@@ -89,7 +89,7 @@
 
       ]
       */
-      var sum = _.reduce(this.attributes[rowIndex], (a, b) => a + b);
+      let sum = _.reduce(this.attributes[rowIndex], (a, b) => a + b);
 
       if (sum === 1 || sum === 0) {
         return false;
@@ -115,12 +115,25 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      let sum = 0;
+      for (let i = 0; i < this.attributes.n; i++) {
+        sum += this.attributes[i][colIndex];
+      }
+      if (sum === 1 || sum === 0) {
+        return false;
+      } else {
+        return true;
+      }
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (let i = 0; i < this.attributes.n; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
