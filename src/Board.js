@@ -209,7 +209,7 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       let n = this.attributes.n;
-      for (let i = 0; i < (n-1)*2; i++) {
+      for (let i = 0; i < (n - 1) * 2; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         } // pass all relevant indexes
