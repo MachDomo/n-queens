@@ -130,20 +130,43 @@
     hasAnyColConflicts: function() {
       for (let i = 0; i < this.attributes.n; i++) {
         if (this.hasColConflictAt(i)) {
-          return true;
+          return true;//comment
         }
       }
       return false;
     },
 
+    /*
 
+
+
+    */
 
     // Major Diagonals - go from top-left to bottom-right
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // input: 0 to n - 1
+      // get value at index
+      let sum = 0;
+      let currentRow = 0;
+      let n = this.attributes.n;
+      for (let i = majorDiagonalColumnIndexAtFirstRow; i < n; i++) {
+        if (i > -1) {
+          sum += this.attributes[currentRow][i];
+        }
+        currentRow++;
+        if (currentRow > n - 1) {
+          break;
+        }
+      }
+
+      if (sum === 1 || sum === 0) {
+        return false;
+      } else {
+        return true;
+      }
     },
 
     // test if any major diagonals on this board contain conflicts
