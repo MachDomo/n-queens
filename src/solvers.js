@@ -20,21 +20,41 @@ window.findNRooksSolution = function(n) {
   // hasAnyRooksConflicts()
 
   let counter = 0;
-
-  let rookRecursion = function(row) {
+  let rookRecursion = function(row, col) {
     // togglePiece(current row and column)
 
+    // Base Case - We stop when we find a solution for row = N
+    // What happens when we don't find a solution
+
+
     solution.togglePiece(row, col);
-    // hasAnyRooksConflicts()
+    if (solution.hasAnyRooksConflicts()) {
     // if conflict, togglePiece(current row and column)
+      solution.togglePiece(row, col);
+      if (col + 1 < n) {
+        rookRecursion(row, col + 1);
+      }
+    } else {
+      if (row + 1 < n) {
+        rookRecursion(row + 1, 0);
+      }
+
+    }
+
     // if no conflicts
     // call rookRecursion on next row
+    // if we are about to go over n - 1 on rows, then don't do next line
+
     // iterate through column
-
+    // return array of arrays (solution.attributes)
   };
-
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  rookRecursion(0, 0);
+  var array = [];
+  for (let i = 0; i < n; i++) {
+    array.push(solution.attributes[i]);
+  }
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(array));
+  return array;
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
