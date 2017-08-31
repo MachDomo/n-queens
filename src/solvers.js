@@ -106,6 +106,15 @@ window.findNQueensSolution = function(n) {
   let solution = new Board({'n': n}); //fixme
   let array = [];
   // hasAnyRooksConflicts()
+  if (n === 2 || n === 3) {
+    for (let i = 0; i < n; i++) {
+      array.push(solution.attributes[i]);
+
+    }
+    console.log('Single solution for ' + n + ' queens:', JSON.stringify(array));
+    return array;
+  }
+
   let rookRecursion = function(row, col) {
     // togglePiece(current row and column)
 
