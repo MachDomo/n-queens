@@ -84,9 +84,6 @@ window.countNRooksSolutions = function(n) {
           solutionCount++;
           solution.togglePiece(row, i);
 
-
-
-
         }
       }
     }
@@ -115,7 +112,7 @@ window.findNQueensSolution = function(n) {
     // Base Case - We stop when we find a solution for row = N
     // What happens when we don't find a solution
 
-    debugger;
+
     for (let i = 0; i < n; i++) {
 
       solution.togglePiece(row, i);
@@ -127,15 +124,15 @@ window.findNQueensSolution = function(n) {
         if (row + 1 < n) {
           rookRecursion(row + 1, 0);
           solution.togglePiece(row, i);
+          if (array.length === n) {
+            return;
+          }
         } else if (row === n - 1) {
           //console.log(solution.attributes);
           for (let i = 0; i < n; i++) {
-            array.push(solution.attributes[i]);
+            array.push(solution.attributes[i].slice());
           }
-          break;
-
-
-
+          return;
 
 
         }
