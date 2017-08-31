@@ -165,18 +165,19 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
+  if (n === 0) {
+    return 1;
+  }
   var solutionCount = 0; //fixme
-
   let solution = new Board({'n': n});
-
-  let rookRecursion = function(row) {
+  let queenRecursion = function(row) {
     // togglePiece(current row and column)
 
     // Base Case - We stop when we find a solution for row = N
 
     // What happens when we don't find a solution
 
-    //solution.attributes[row] = Array(n).fill(0);
+
     for (let i = 0; i < n; i++) {
 
       solution.togglePiece(row, i);
@@ -186,16 +187,12 @@ window.countNQueensSolutions = function(n) {
 
       } else {
         if (row + 1 < n) {
-          rookRecursion(row + 1, 0);
+          queenRecursion(row + 1, 0);
           solution.togglePiece(row, i);
         } else if (row === n - 1) {
           //console.log(solution.attributes);
           solutionCount++;
           solution.togglePiece(row, i);
-
-
-
-
         }
       }
     }
@@ -206,7 +203,7 @@ window.countNQueensSolutions = function(n) {
     // iterate through column
     // return array of arrays (solution.attributes)
   };
-  rookRecursion(0);
+  queenRecursion(0);
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
