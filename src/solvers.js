@@ -158,8 +158,42 @@ window.countNQueensSolutions = function(n) {
     }
   };
 
-  queenRecursion(0);
+  let queenEvenRecursion = function(row) {
+    var returnSwitch = false;
+    for (let i = 0; i < n; i++) {
+      solution.togglePiece(row, i);
 
+      if (solution.hasAnyQueensConflicts()) {
+        solution.togglePiece(row, i);
+
+      } else {
+
+        if (row + 1 < n) {
+          queenRecursion(row + 1, 0);
+          solution.togglePiece(row, i);
+          if (returnSwitch) {
+            return;
+          }
+
+        } else if (row === n - 1) {
+          //check if position (0, n/2) double solution and return
+          if (this.attributes[0][n / 2] === 1) {
+            solutionCount *= 2;
+            returnSwitch = true;
+            return;
+          }
+          solutionCount++;
+          solution.togglePiece(row, i);
+        }
+      }
+    }
+  };
+
+  if (n % 2 === 0) {
+    queenEvenRecursion(0);
+  } else {
+    queenRecursion(0);
+  }
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
