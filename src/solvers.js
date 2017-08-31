@@ -12,11 +12,26 @@
 
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
-
+// togglePiece(rowIndex, columnIndex)
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  let solution = new Board({'n': n}); //fixme
+  // hasAnyRooksConflicts()
+
+  let counter = 0;
+
+  let rookRecursion = function(row) {
+    // togglePiece(current row and column)
+
+    solution.togglePiece(row, col);
+    // hasAnyRooksConflicts()
+    // if conflict, togglePiece(current row and column)
+    // if no conflicts
+    // call rookRecursion on next row
+    // iterate through column
+
+  };
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
@@ -33,6 +48,7 @@ window.countNRooksSolutions = function(n) {
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
   var solution = undefined; //fixme
+  // hasAnyQueenConflictsOn(rowIndex, colIndex)
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
