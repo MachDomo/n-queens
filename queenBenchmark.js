@@ -1,0 +1,1 @@
+var suite = new Benchmark.Suite;
