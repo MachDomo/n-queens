@@ -107,7 +107,7 @@ window.findNQueensSolution = function(n) {
 
       solution.togglePiece(row, i);
 
-      if (solution.hasAnyQueensConflicts()) {
+      if (solution.hasAnyQueensConflictsOn(row, i)) {
         solution.togglePiece(row, i);
 
       } else {
@@ -201,6 +201,86 @@ window.countNQueensSolutions = function(n) {
   } else {
     queenRecursion(0);
   }
+  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  return solutionCount;
+};
+
+
+
+/*
+======================================================================
+Old Code
+======================================================================
+*/
+
+
+
+window.oldCountNRooksSolutions = function(n) {
+  let solutionCount = 0; //fixme
+  let solution = new Board({'n': n});
+  let returnSwitch = false;
+
+  let rookRecursion = function(row) {
+    for (let i = 0; i < n; i++) {
+      solution.togglePiece(row, i);
+
+      if (solution.hasAnyRooksConflicts()) {
+      // if conflict, togglePiece(current row and column)
+        solution.togglePiece(row, i);
+
+      } else {
+
+        if (row + 1 < n) {
+          rookRecursion(row + 1, 0);
+          solution.togglePiece(row, i);
+
+
+        } else if (row === n - 1) {
+
+          solutionCount++;
+          solution.togglePiece(row, i);
+
+        }
+      }
+    }
+  };
+  rookRecursion(0);
+  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+  return solutionCount;
+};
+
+
+window.oldCountNQueensSolutions = function(n) {
+  if (n === 0) {
+    return 1;
+  }
+  var solutionCount = 0; //fixme
+  let solution = new Board({'n': n});
+
+  let queenRecursion = function(row) {
+
+    for (let i = 0; i < n; i++) {
+      solution.togglePiece(row, i);
+
+      if (solution.hasAnyQueensConflicts()) {
+        solution.togglePiece(row, i);
+
+      } else {
+
+        if (row + 1 < n) {
+          queenRecursion(row + 1, 0);
+          solution.togglePiece(row, i);
+
+        } else if (row === n - 1) {
+          solutionCount++;
+          solution.togglePiece(row, i);
+        }
+      }
+    }
+  };
+
+  queenRecursion(0);
+
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };

@@ -2,15 +2,16 @@
 <html>
 <body>
 
-<a href="#" onclick="rook.run({async: true}); return false;">run rook test</a>
-<a href="#" onclick="queen.run({async: true}); return false;">run queen test</a>
+<a href="#" onclick="rook.run({async: true}); return false;">run rook test</a><br>
+<a href="#" onclick="queen.run({async: true}); return false;">run queen test</a><br>
+<a href="#" onclick="oldRook.run({async: true}); return false;">run old rook test</a><br>
+<a href="#" onclick="oldQueen.run({async: true}); return false;">run old queen test</a><br>
 
 <div id="mydiv"></div>
 
 <script src="node_modules\lodash\lodash.js"></script>
 <script src="node_modules\platform\platform.js"></script>
 <script src="node_modules\benchmark\benchmark.js"></script>
-<script src="queenBenchmark.js"></script>
 <script src="lib\underscore.js"></script>
 <script src="lib\backbone.js"></script>
 <script src="src\Board.js"></script>
@@ -44,6 +45,31 @@ countNRooksSolutions(8);
 
 });
 
+var oldRook = new Benchmark('insertNode',
+
+// The function to test
+function() {
+oldCountNRooksSolutions(8);
+},
+// function() {
+//   mydiv.insertAdjacentHTML('beforeend', '<span></span>');
+// },
+
+// Additional options for the test
+{
+  'setup': function() {
+    //var mydiv = document.getElementById('mydiv');
+  },
+  'teardown': function() {
+    //mydiv.innerHTML = '';
+  },
+  // called when the benchmark completes running
+  'onComplete': function() {
+    console.log('Result of Rook test is ' + oldRook.stats.mean);
+  }
+
+});
+
 var queen = new Benchmark('insertNode',
 
 // The function to test
@@ -65,6 +91,33 @@ countNQueensSolutions(8);
   // called when the benchmark completes running
   'onComplete': function() {
     console.log('Result of Queen test is ' + queen.stats.mean);
+  }
+
+});
+
+
+
+var oldQueen = new Benchmark('insertNode',
+
+// The function to test
+function() {
+oldCountNQueensSolutions(8);
+},
+// function() {
+//   mydiv.insertAdjacentHTML('beforeend', '<span></span>');
+// },
+
+// Additional options for the test
+{
+  'setup': function() {
+    //var mydiv = document.getElementById('mydiv');
+  },
+  'teardown': function() {
+    //mydiv.innerHTML = '';
+  },
+  // called when the benchmark completes running
+  'onComplete': function() {
+    console.log('Result of Queen test is ' + oldQueen.stats.mean);
   }
 
 });
